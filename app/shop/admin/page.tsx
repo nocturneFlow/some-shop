@@ -2,6 +2,13 @@
 
 import { useState } from "react";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   getCategories,
   getAllItems,
   addCategory,
@@ -137,21 +144,23 @@ export default function AdminPage() {
               className="border rounded-md p-2"
               required
             />
-            <select
+            <Select
               value={newItem.category}
-              onChange={(e) =>
-                setNewItem({ ...newItem, category: e.target.value })
+              onValueChange={(value) =>
+                setNewItem({ ...newItem, category: value })
               }
-              className="border rounded-md p-2"
-              required
             >
-              <option value="">Select Category</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.title}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Category" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((cat) => (
+                  <SelectItem key={cat.id} value={cat.id}>
+                    {cat.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <input
               type="text"
               placeholder="Title"

@@ -1,6 +1,7 @@
 "use client";
 
 import { AppSidebar } from "@/components/app-sidebar";
+import { ModeToggle } from "@/components/mode-toggle";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -29,7 +30,9 @@ export default function Layout({ children }: { children: ReactNode }) {
               <h1 className="text-lg font-bold capitalize">{displayTitle}</h1>
             </div>
           </div>
-          <div className="flex items-center gap-2"></div>
+          <div className="flex items-center gap-2">
+            <ModeToggle />
+          </div>
         </header>
         <main className="flex flex-1 flex-col gap-4 overflow-auto">
           {children}

@@ -1,4 +1,5 @@
 import { getMockItemsByCategory } from "@/app/lib/mockData";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function CategoryPage({
@@ -18,14 +19,19 @@ export default function CategoryPage({
             className="group"
           >
             <div className="border rounded-lg p-4 hover:shadow-lg transition-shadow">
-              <div className="aspect-square relative mb-4">
-                <img
+              <div className="relative w-full pb-[100%] bg-gray-50">
+                <Image
                   src={item.image}
                   alt={item.title}
-                  className="object-cover w-full h-full rounded"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                  className="object-contain p-2 hover:scale-105 transition-transform duration-300"
+                  priority={false}
+                  loading="lazy"
+                  quality={100}
                 />
               </div>
-              <h2 className="font-semibold">{item.title}</h2>
+              <h2 className="font-semibold line-clamp-2 mt-4">{item.title}</h2>
               <p className="text-primary mt-2">${item.price.toFixed(2)}</p>
             </div>
           </Link>

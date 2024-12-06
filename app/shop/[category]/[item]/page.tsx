@@ -2,6 +2,7 @@
 
 import { notFound } from "next/navigation";
 import { getMockItem } from "@/app/lib/mockData";
+import Image from "next/image";
 
 interface Item {
   id: string;
@@ -47,10 +48,17 @@ export default async function ItemPage({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-card rounded-lg p-6">
           {/* Image Section */}
           <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
-            <img
-              src={item.image || "/placeholder.jpg"}
+            <Image
+              src={item.image}
               alt={item.title}
-              className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+              className="object-contain p-2 hover:scale-105 transition-transform duration-300"
+              priority={false}
+              loading="lazy"
+              quality={100}
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII="
             />
           </div>
 
@@ -95,7 +103,7 @@ export default async function ItemPage({
   }
 }
 
-// Generate metadata for SEO
+//metadata for SEO
 export async function generateMetadata({
   params,
 }: {
