@@ -2,16 +2,7 @@
 
 import { getCategories } from "@/app/lib/mockData";
 import * as React from "react";
-import {
-  BookOpen,
-  Bot,
-  ChartBarStacked,
-  Home,
-  Lock,
-  Settings2,
-  ShoppingBag,
-  SquareTerminal,
-} from "lucide-react";
+import { ChartBarStacked, Home, Lock, ShoppingBag } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavCategories } from "@/components/nav-categories";
@@ -24,7 +15,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail,
 } from "@/components/ui/sidebar";
 
 // This is sample data.

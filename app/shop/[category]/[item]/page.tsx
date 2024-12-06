@@ -98,7 +98,7 @@ export default async function ItemPage({
         </div>
       </div>
     );
-  } catch (error) {
+  } catch {
     notFound();
   }
 }
