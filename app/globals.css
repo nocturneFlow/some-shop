@@ -12,6 +12,17 @@ body {
   }
 }
 
+.bg-noise {
+  backdrop-filter: blur(150px);
+  -webkit-backdrop-filter: blur(150px);
+}
+
+.gradient-blob {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

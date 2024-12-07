@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { cn } from "@/lib/utils";
+import { Manrope as FontSans } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Limiko | VK Cloud",
   description: "Project for complete task 2 from VK Cloud",
 };
+
+const fontSans = FontSans({
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -27,7 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={cn(
+          "h-auto min-h-screen bg-background  antialiased",
+          fontSans.className
+        )}
       >
         <ThemeProvider
           attribute="class"
