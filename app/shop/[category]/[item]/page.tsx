@@ -1,39 +1,8 @@
 // app/shop/[category]/[item]/page.tsx
 
 import { notFound } from "next/navigation";
-import { getMockItem } from "@/app/lib/mockData";
+import { getItem } from "@/app/lib/data";
 import Image from "next/image";
-
-interface Item {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-}
-
-async function getItem(category: string, item: string): Promise<Item> {
-  if (!process.env.BACKEND_URL) {
-    const mockItem = getMockItem(category, item);
-    if (!mockItem) {
-      throw new Error("Item not found");
-    }
-    return mockItem;
-  }
-
-  const res = await fetch(
-    `${process.env.BACKEND_URL}/api/${category}/${item}`,
-    {
-      cache: "no-store", // Disable cache for real-time data
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch item");
-  }
-
-  return res.json();
-}
 
 export default async function ItemPage({
   params,
@@ -42,14 +11,14 @@ export default async function ItemPage({
 }) {
   try {
     const item = await getItem(params.category, params.item);
+    if (!item) return notFound();
 
     return (
       <div className="container mx-auto p-8 h-screen shadow-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-card rounded-lg p-6">
-          {/* Image Section */}
           <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
             <Image
-              src={item.image}
+              src={item.image_url}
               alt={item.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
@@ -57,8 +26,6 @@ export default async function ItemPage({
               priority={false}
               loading="lazy"
               quality={100}
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII="
             />
           </div>
 
@@ -73,7 +40,7 @@ export default async function ItemPage({
 
             <div className="space-y-4">
               <p className="text-2xl font-semibold text-primary">
-                ${item.price.toFixed(2)}
+                ${parseFloat(item.price).toFixed(2)}
               </p>
               <button
                 className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-lg 
@@ -110,6 +77,7 @@ export async function generateMetadata({
   params: { category: string; item: string };
 }) {
   const item = await getItem(params.category, params.item);
+  if (!item) return {};
 
   return {
     title: item.title,

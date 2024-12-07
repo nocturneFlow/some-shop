@@ -1,13 +1,13 @@
-import { getMockItemsByCategory } from "@/app/lib/mockData";
+import { getItemsByCategory } from "@/app/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function CategoryPage({
+export default async function CategoryPage({
   params,
 }: {
   params: { category: string };
 }) {
-  const items = getMockItemsByCategory(params.category);
+  const items = await getItemsByCategory(params.category);
 
   return (
     <div className="container mx-auto p-8">
@@ -21,7 +21,7 @@ export default function CategoryPage({
             <div className="border rounded-lg p-4 hover:shadow-lg transition-shadow">
               <div className="relative w-full pb-[100%] bg-gray-50">
                 <Image
-                  src={item.image}
+                  src={item.image_url}
                   alt={item.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
@@ -32,7 +32,9 @@ export default function CategoryPage({
                 />
               </div>
               <h2 className="font-semibold line-clamp-2 mt-4">{item.title}</h2>
-              <p className="text-primary mt-2">${item.price.toFixed(2)}</p>
+              <p className="text-primary mt-2">
+                ${parseFloat(item.price).toFixed(2)}
+              </p>
             </div>
           </Link>
         ))}
