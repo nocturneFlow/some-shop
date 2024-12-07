@@ -1,6 +1,15 @@
-import { getItemsByCategory } from "@/app/lib/data";
+import { getItems, getItemsByCategory } from "@/app/lib/data";
 import Image from "next/image";
 import Link from "next/link";
+
+export async function generateStaticParams() {
+  const items = await getItems();
+  const categories = Array.from(new Set(items.map((item) => item.category)));
+
+  return categories.map((category) => ({
+    category: category,
+  }));
+}
 
 export default async function CategoryPage({
   params,

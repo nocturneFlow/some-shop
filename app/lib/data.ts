@@ -26,7 +26,7 @@ async function fetchWithRetry(url: string, retries = 3): Promise<Response> {
 
 export async function getItems(): Promise<Item[]> {
   try {
-    const res = await fetchWithRetry(`http://90.156.251.249:8080/getitems`);
+    const res = await fetchWithRetry(`http://localhost:8080/getitems`);
     const data: ApiResponse = await res.json();
     return data.items;
   } catch (error) {

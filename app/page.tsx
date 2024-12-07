@@ -18,6 +18,9 @@ const ANIMATION_CONFIG = {
 } as const;
 
 export default function WelcomePage() {
+  const [hoveredSection, setHoveredSection] = useState<"left" | "right" | null>(
+    null
+  );
   const [isMobile, setIsMobile] = useState(false);
 
   const refs = {
@@ -36,6 +39,7 @@ export default function WelcomePage() {
     (section: "left" | "right" | null) => {
       if (isMobile) return;
 
+      setHoveredSection(section);
       const ctx = gsap.context(() => {
         if (section === "left" || section === "right") {
           const activeRef = section === "left" ? refs.left : refs.right;
@@ -101,7 +105,7 @@ export default function WelcomePage() {
 
       return () => ctx.revert();
     },
-    [isMobile, refs.left, refs.right, refs.title]
+    [isMobile]
   );
 
   // Initial animations
@@ -140,7 +144,7 @@ export default function WelcomePage() {
     });
 
     return () => ctx.revert();
-  }, [refs.left, refs.right, refs.title]);
+  }, []);
 
   // Mouse move effect
   useEffect(() => {
@@ -167,7 +171,7 @@ export default function WelcomePage() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isMobile, refs.left, refs.right, refs.title]);
+  }, [isMobile]);
 
   // Blob animations
   useEffect(() => {

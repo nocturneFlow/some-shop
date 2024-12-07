@@ -116,3 +116,34 @@ export function getMockItemsByCategory(category: string): Item[] {
 export function getAllCategories(): string[] {
   return Array.from(new Set(mockItems.map((item) => item.category)));
 }
+
+export const mockProducts = [
+  {
+    id: "1",
+    title: "Wireless Headphones",
+    price: "29999",
+    category: "electronics",
+    image_url: "https://picsum.photos/id/1/500/500",
+  },
+  {
+    id: "2",
+    title: "Smart Watch Series X",
+    price: "49999",
+    category: "electronics",
+    image_url: "https://picsum.photos/id/2/500/500",
+  },
+  {
+    id: "3",
+    title: "Premium Leather Wallet",
+    price: "9999",
+    category: "accessories",
+    image_url: "https://picsum.photos/id/3/500/500",
+  },
+  {
+    id: "4",
+    title: "Vintage Denim Jacket",
+    price: "79999",
+    category: "clothing",
+    image_url: "https://picsum.photos/id/4/500/500",
+  },
+];

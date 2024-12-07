@@ -33,13 +33,21 @@ export default function ShopPage() {
         setIsLoading(true);
         setError(null);
         const items = await getItems();
-        const products = items.map((item) => ({
-          id: item.id.toString(),
-          title: item.title,
-          price: item.price,
-          category: item.category,
-          image_url: item.image_url,
-        }));
+        const products = items.map(
+          (item: {
+            id: { toString: () => any };
+            title: any;
+            price: any;
+            category: any;
+            image_url: any;
+          }) => ({
+            id: item.id.toString(),
+            title: item.title,
+            price: item.price,
+            category: item.category,
+            image_url: item.image_url,
+          })
+        );
         setProducts(products);
       } catch (error) {
         setError(
